@@ -15,7 +15,7 @@ describe('[Security Rules] /{document=**}', () => {
 		await cleanup();
 	});
 
-	it('should deny read/write unauthorized collections.', async () => {
+	it('should deny anyone to read/write unauthorized collections.', async () => {
 		expect.assertions(5);
 
 		const db = await setup();

@@ -25,8 +25,8 @@ service cloud.firestore {
     }
 
     match /posts/{postId} {
-      allow read: if resource.data.isPublished || isAuthor();
-      allow write: if isAuthor();
+      allow read: if resource.data.isPublished;
+      allow read, write: if isAuthor();
     }
   }
 }
