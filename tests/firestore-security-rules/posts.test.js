@@ -1,14 +1,11 @@
-import { setup, cleanup } from './helpers.js';
+import { setup, cleanup, generateRefs } from './helpers.js';
 
 describe('[Security Rules] /posts/{postId}', () => {
 	const mockColPath = 'posts';
-	const mockDocPath = `${mockColPath}/1234`;
+	const mockDocumentId = '1234';
+	const mockDocPath = `${mockColPath}/${mockDocumentId}`;
 
-	const getRefs = db => {
-		const colRef = db.collection(mockColPath);
-		const docRef = db.doc(mockDocPath);
-		return { colRef, docRef };
-	};
+	const getRefs = db => generateRefs(db, mockColPath, mockDocumentId);
 
 	afterEach(async () => {
 		await cleanup();

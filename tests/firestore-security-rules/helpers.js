@@ -38,6 +38,12 @@ export const cleanup = async () => {
 	await Promise.all(firebase.apps().map(app => app.delete()));
 };
 
+export const generateRefs = (db, collectionPath, documentId) => {
+	const colRef = db.collection(collectionPath);
+	const docRef = colRef.doc(documentId);
+	return { colRef, docRef };
+};
+
 //////////////////////////////////////////////// custom matcher
 expect.extend({
 	async toAllow(promise) {

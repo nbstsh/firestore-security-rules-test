@@ -1,15 +1,10 @@
-import { setup, cleanup } from './helpers.js';
+import { setup, cleanup, generateRefs } from './helpers.js';
 
 describe('[Security Rules] /{document=**}', () => {
 	const mockColPath = 'dummyCollection';
-	const mockDocPath = `${mockColPath}/dummyDocument`;
-	const dummyData = {};
+	const mockDocumentId = 'dummyDocumentId';
 
-	const getRefs = db => {
-		const colRef = db.collection(mockColPath);
-		const docRef = db.doc(mockDocPath);
-		return { colRef, docRef };
-	};
+	const getRefs = db => generateRefs(db, mockColPath, mockDocumentId);
 
 	afterEach(async () => {
 		await cleanup();
@@ -23,8 +18,8 @@ describe('[Security Rules] /{document=**}', () => {
 
 		await expect(colRef.get()).toDeny();
 		await expect(docRef.get()).toDeny();
-		await expect(colRef.add(dummyData)).toDeny();
-		await expect(docRef.update(dummyData)).toDeny();
+		await expect(colRef.add({})).toDeny();
+		await expect(docRef.update({})).toDeny();
 		await expect(docRef.delete()).toDeny();
 	});
 });

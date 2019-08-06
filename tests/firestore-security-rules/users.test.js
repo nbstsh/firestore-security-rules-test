@@ -1,4 +1,4 @@
-import { setup, cleanup } from './helpers.js';
+import { setup, cleanup, generateRefs } from './helpers.js';
 
 describe('[Security Rules] /users/{userId}', () => {
 	const mockUserId = '1234';
@@ -7,11 +7,7 @@ describe('[Security Rules] /users/{userId}', () => {
 	const mockUserDoc = {};
 	const mockAdminUserDoc = { admin: true };
 
-	const getRefs = db => {
-		const colRef = db.collection(mockColPath);
-		const docRef = db.doc(mockDocPath);
-		return { colRef, docRef };
-	};
+	const getRefs = db => generateRefs(db, mockColPath, mockUserId);
 
 	afterEach(async () => {
 		await cleanup();
